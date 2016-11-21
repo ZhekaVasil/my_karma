@@ -5,12 +5,12 @@
         .controller('homeController', HomeController);
 
 
-    HomeController.$inject = ['$scope'];
-    function HomeController($scope){
+    HomeController.$inject = [];
+    function HomeController(){
         var vm = this;
-        vm.name = 'Zheka';
+        vm.name = 'LoL';
         vm.func = al;
-        vm.func('LoL');
+        vm.func('Zheka');
         function al(name) {
             vm.name = name;
             return true

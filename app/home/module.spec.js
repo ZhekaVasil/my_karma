@@ -1,33 +1,24 @@
 describe('Home controller', function () {
-    var $controller, HomeController, scope;
-    beforeEach(angular.mock.module('myApp.home'));
-    beforeEach(inject(function(_$controller_, $rootScope) {
-        scope = $rootScope.$new();
-        $controller = _$controller_;
-        HomeController = $controller('homeController', {$scope: scope});
-
+    beforeEach(module('myApp.home'));
+        var controller, homeController;
+    beforeEach(inject(function (_$controller_) {
+        controller = _$controller_;
+        homeController = controller('homeController', {});
+        spyOn(homeController, 'func').and.callThrough();
     }));
 
-    it('should be 4', function () {
-        expect(2+2).toEqual(4)
-    });
+    it('should exist', function () {
+        expect(homeController.name).toBeDefined();
+        expect(homeController.name).toEqual('Zheka');
+        expect(homeController.func).toBeDefined();
 
-    it('should be defined', function () {
-        expect(HomeController).toBeDefined()
-    });
-    it('controller name should be Zheka ', function () {
-        expect(HomeController.name).toEqual('Zheka');
-    });
 
-    it('should call function', function () {
-        var names = 'Max';
-        spyOn(HomeController, 'func').and.callThrough();
-        expect(HomeController.func).toBeDefined();
-        expect(HomeController.func).not.toHaveBeenCalled();
-        expect(HomeController.name).toEqual('Zheka');
-        HomeController.func(names);
-        expect(HomeController.func).toHaveBeenCalledWith(names);
-        expect(HomeController.name).toBe(names);
 
+        expect(homeController.func).not.toHaveBeenCalled();
+        homeController.func('Vasil');
+        expect(homeController.func).toHaveBeenCalledWith('Vasil');
+        expect(homeController.name).toEqual('Vasil');
+        homeController.func('Vasil2');
+        expect(homeController.name).toEqual('Vasil2');
     })
 });
